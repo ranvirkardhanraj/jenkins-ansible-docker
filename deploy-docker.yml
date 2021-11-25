@@ -3,6 +3,10 @@
   become: True
   tasks:
   - name: 'Creating deployment '
-    command: kubectl create deployment myapp --image=dhanrajranvirkar/myapp:${image_version}
+    community.kubernetes.k8s:
+      state: present
+      src: myapp.yml
   - name: 'exporting deployment'
-    command: kubectl expose deployment myapp --type=LoadBalancer --target-port=8080 --port=8080
+    community.kubernetes.k8s:
+      state: present
+      src: myappserver.yml
