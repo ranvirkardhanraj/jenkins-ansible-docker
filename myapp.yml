@@ -18,7 +18,7 @@ spec:
         app: myapp
     spec:
       containers:
-      - image: docker.io/httpd
+      - image: dhanrajranvirkar/myapp:${image_version}
         name: httpd
         resources: {}
 status: {}
