@@ -11,10 +11,6 @@
   - name: 'Installing PyYAML'
     command: pip3 install PyYAML
   - name: 'Creating deployment '
-    k8s:
-      state: present
-      src: myapp.yml
-  - name: 'exporting deployment'
-    k8s:
-      state: present
-      src: myappservice.yml
+    command: kubectl create deployment server --image=dhanrajranvirkar/myapp:${image_version}
+  - name: 'Expose Deployment'
+    command: kubectl expose deployment server --type=loadBalancer --target-port=8080 --port=8888
