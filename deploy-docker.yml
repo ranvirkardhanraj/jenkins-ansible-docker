@@ -9,4 +9,4 @@
   - name: 'exporting deployment'
     community.kubernetes.k8s:
       state: present
-      src: myappserver.yml
+      src: myappservice.yml
