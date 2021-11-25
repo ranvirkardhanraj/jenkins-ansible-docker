@@ -2,22 +2,6 @@
 - hosts: dev
   become: True
   tasks:
-  - name: 'Installing Python-pip'
-    yum:
-      name: python-pip
-      state: latest
-  - name: 'Installing openshift module'
-    pip:
-      name: openshift
-      state: present
-  - name: 'Installing PyYAML'
-    pip:
-      name: PyYAML
-      state: present
-  - name: 'Installing Python'
-    yum:
-      name: python3
-      state: present
   - name: 'Creating deployment '
     command: kubectl create deployment myapp --image=dhanrajranvirkar/myapp:${image_version}
   - name: 'exporting deployment'
