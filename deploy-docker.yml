@@ -1,5 +1,6 @@
 ---
 - hosts: dev
+  any_errors_fatal: true
   become: True
   tasks:
   - name: 'Installing Python3'
