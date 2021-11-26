@@ -4,6 +4,6 @@
   become: True
   tasks:
   - name: 'Deploying image'
-    command: kubectl apply -f myapp.yml
+    command: kubectl create deployment myapp
   - name: Create a Service object from an inline definition
     command: kubectl expose pod myapp --type=NodePort --target-port=8080 --port=8080
