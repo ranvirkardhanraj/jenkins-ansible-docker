@@ -18,8 +18,8 @@ spec:
         app: myweb
     spec:
       containers:
-      - image: httpd
-        name: httpd
+      - image: dhanrajranvirkar/myapp:"{{ image_version }}"
+        name: myapp:"{{ image_version }}"
         resources: {}
         imagePullPolicy: Always
 status: {}
