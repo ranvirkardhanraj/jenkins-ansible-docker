@@ -4,27 +4,8 @@
   become: True
   tasks:
   - name: 'Deploying image'
-    command: kubectl apply -f myapp.yml
+    command: kubectl create deployment myapp --image=dhanrajranvirkar/myapp:${image_version}
   - name: 'update deployment'
     command: kubectl rollout restart deployment.v1.apps/myapp
   - name: Create a Service object from an inline definition
-    k8s:
-      state: present
-      definition:
-        apiVersion: v1
-        kind: Service
-        metadata:
-          name: myapp
-          namespace: default
-          labels:
-            app: myapp
-            service: myapp
-        spec:
-          selector:
-            app: myapp
-            service: myapp
-          type: LoadBalancer
-          ports:
-          - protocol: TCP
-            targetPort: 8000
-            port: 8000
+    command: kubectl expose deployment --type=NodePort --target-port=8080 --port=8080
