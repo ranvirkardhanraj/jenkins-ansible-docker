@@ -4,7 +4,7 @@
   become: True
   tasks:
   - name: 'Deploying image'
-    command: kubectl create deployment myapp --image=dhanrajranvirkar/myapp:${image_version}
+    command: kubectl create deployment myapp --image=dhanrajranvirkar/myapp:"{{ image_version }}"
   - name: 'update deployment'
     command: kubectl rollout restart deployment.v1.apps/myapp
   - name: Create a Service object from an inline definition
