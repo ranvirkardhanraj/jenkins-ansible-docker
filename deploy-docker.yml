@@ -8,4 +8,4 @@
   - name: 'update deployment'
     command: kubectl rollout restart deployment.v1.apps/myapp
   - name: 'create service'
-    command: kubectl apply -f myappservice.yml
+    command: kubectl create -f myappservice.yml
