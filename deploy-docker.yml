@@ -7,5 +7,24 @@
     command: kubectl apply -f myapp.yml
   - name: 'update deployment'
     command: kubectl rollout restart deployment.v1.apps/myapp
-  - name: 'create service'
-    command: kubectl create -f myappservice.yml
+  - name: Create a Service object from an inline definition
+    k8s:
+      state: present
+      definition:
+        apiVersion: v1
+        kind: Service
+        metadata:
+          name: myapp
+          namespace: default
+          labels:
+            app: myapp
+            service: myapp
+        spec:
+          selector:
+            app: myapp
+            service: myapp
+          type: NodePort
+          ports:
+          - protocol: TCP
+            targetPort: 8000
+            port: 8000
