@@ -1,5 +1,5 @@
 <html>
 <body>
-<h2 stype="colour: red">Successfully deployed on K8s using Jenkins, Ansible</h2>
+<h2 stype="colour: red">Hello from admin</h2>
 </body>
 </html>
