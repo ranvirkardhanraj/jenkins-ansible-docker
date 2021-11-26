@@ -4,8 +4,6 @@
   become: True
   tasks:
   - name: 'Deploying image'
-    command: kubectl create deployment myapp --image=dhanrajranvirkar/myapp:"{{ image_version }}"
-  - name: 'update deployment'
-    command: kubectl rollout restart deployment.v1.apps/myapp
+    command: kubectl apply -f myapp.yml
   - name: Create a Service object from an inline definition
-    command: kubectl expose deployment myapp --type=NodePort --target-port=8080 --port=8080
+    command: kubectl expose pod myapp --type=NodePort --target-port=8080 --port=8080
