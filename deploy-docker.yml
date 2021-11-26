@@ -1,6 +1,6 @@
 ---
 - hosts: dev
-  any_errors_fatal: true
+  ignore_errors: yes
   become: True
   tasks:
   - name: 'Deploying image'
