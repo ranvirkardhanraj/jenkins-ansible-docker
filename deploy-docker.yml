@@ -5,8 +5,6 @@
   tasks:
   - name: 'Deleting old version'
     command: kubectl delete deployment myapp
-  - name: 'Deleting old service'
-    command: kubectl delete svc myapp
   - name: 'Deploying new version image'
     command: kubectl create deployment myapp --image=dhanrajranvirkar/myapp:"{{ image_version }}"
   - name: 'Creating new service'
