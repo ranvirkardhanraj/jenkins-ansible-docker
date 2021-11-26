@@ -3,7 +3,11 @@
   ignore_errors: yes
   become: True
   tasks:
-  - name: 'Deploying image'
-    command: kubectl create deployment myapp
-  - name: Create a Service object from an inline definition
-    command: kubectl expose pod myapp --type=NodePort --target-port=8080 --port=8080
+  - name: 'Deleting old version'
+    command: kubectl delete deployment myapp
+  - name: 'Deleting old service'
+    command: kubectl delete svc myapp
+  - name: 'Deploying new version image'
+    command: kubectl create deployment myapp --image=dhanrajranvirkar/myapp:"{{ image_version }}"
+  - name: 'Creating new service'
+    command: kubectl expose deployment myapp --type=NodePort --port=8080 --target-port=8080
