@@ -1,0 +1,40 @@
+pipeline{
+    agent any
+    environment {
+  image_version = imageVersion()
+}
+    stages{
+        stage('SVC'){
+            steps{
+                git 'https://github.com/ranvirkardhanraj/jenkins-ansible-docker.git'
+            }
+        }
+        stage('Build'){
+            steps{
+                sh 'mvn clean package'
+            }
+        }
+        stage('Image Build'){
+            steps{
+                sh 'docker build . -t dhanrajranvirkar/myapp:${image_version}'
+            }
+        }
+        stage('Image Push'){
+            steps{
+                withCredentials([string(credentialsId: 'dockerhub_pass', variable: 'password')]) {
+    sh 'docker login -u dhanrajranvirkar -p ${password}'
+}
+                sh 'docker push dhanrajranvirkar/myapp:${image_version}'
+            }
+        }
+        stage('Deploy'){
+            steps{
+                ansiblePlaybook credentialsId: 'kube-secret', disableHostKeyChecking: true, extras:"-e image_version=${image_version}", installation: 'ansible', inventory: 'dev.inv', playbook: 'deploy-docker.yml'
+            }
+        }
+    }
+}
+def imageVersion(){
+    def version = sh returnStdout: true, script: 'git rev-parse --short HEAD'
+    return version
+}
